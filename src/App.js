@@ -1,18 +1,35 @@
 import "./styles/style.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 function App() {
   const [list, setList] = useState([]);
   const [input, setInput] = useState("");
 
-  const addTask = (task) => {
-    const newTask = {
-      id: Math.random(),
-      task: task,
+  useEffect(() => {
+    const fetchTasks = async () => {
+      try {
+        const response = await axios.get("http://localhost:3001/api/tasks");
+        setList(response.data);
+      } catch (error) {
+        console.error("Error when loading tasks:", error);
+      }
     };
-    setList([...list, newTask]);
 
-    setInput("");
+    fetchTasks();
+  }, []);
+
+  const addTask = async (task) => {
+    try {
+      const response = await axios.post("http://localhost:3001/api/tasks", {
+        text: task,
+        completed: false,
+      });
+      setList([...list, response.data]);
+      setInput("");
+    } catch (error) {
+      console.error("Error when adding a task:", error);
+    }
   };
 
   const handleSubmit = (e) => {
@@ -22,16 +39,28 @@ function App() {
     }
   };
 
-  const deleteTask = (id) => {
-    setList(list.filter((task) => task.id !== id));
+  const deleteTask = async (id) => {
+    try {
+      await axios.delete(`http://localhost:3001/api/tasks/${id}`);
+      setList(list.filter((task) => task._id !== id)); //_id от MongoDB
+    } catch (error) {
+      console.error("Error when deleting tasks:", error);
+    }
   };
 
-  const toggleTaskDone = (id) => {
-    setList(
-      list.map((task) =>
-        task.id === id ? { ...task, done: !task.done } : task
-      )
-    );
+  const toggleTaskDone = async (id) => {
+    const task = list.find((task) => task._id === id);
+    try {
+      const response = await axios.patch(
+        `http://localhost:3001/api/tasks/${id}`,
+        {
+          completed: !task.completed,
+        }
+      );
+      setList(list.map((task) => (task._id === id ? response.data : task)));
+    } catch (error) {
+      console.error("Error when updating tasks:", error);
+    }
   };
 
   const checkEmptyList = () => {
@@ -68,22 +97,22 @@ function App() {
             </li>
           )}
           {list.map((task) => (
-            <li key={task.id} id={task.id} className="bottom__item">
+            <li key={task._id} id={task._id} className="bottom__item">
               <p
                 className={
-                  task.done
+                  task.completed
                     ? "bottom__item-title item-done"
                     : "bottom__item-title"
                 }
               >
-                {task.task}
+                {task.text}
               </p>
               <div className="bottom__buttons">
                 <button
                   type="button"
                   data-action="done"
                   className="bottom__btn-done btn-action"
-                  onClick={() => toggleTaskDone(task.id)}
+                  onClick={() => toggleTaskDone(task._id)}
                 >
                   <img
                     src="./image/done.svg"
@@ -96,7 +125,7 @@ function App() {
                   type="button"
                   data-action="delete"
                   className="bottom__btn-delete btn-action"
-                  onClick={() => deleteTask(task.id)}
+                  onClick={() => deleteTask(task._id)}
                 >
                   <img
                     src="image/delete.svg"
