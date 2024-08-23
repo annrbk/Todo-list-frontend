@@ -42,7 +42,7 @@ function App() {
   const deleteTask = async (id) => {
     try {
       await axios.delete(`http://localhost:3001/api/tasks/${id}`);
-      setList(list.filter((task) => task._id !== id)); //_id от MongoDB
+      setList(list.filter((task) => task._id !== id));
     } catch (error) {
       console.error("Error when deleting tasks:", error);
     }
