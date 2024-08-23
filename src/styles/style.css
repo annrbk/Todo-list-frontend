@@ -1,5 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
 body {
   background-color: #f5f5f5;
+  font-family: Inter, sans-serif;
 }
 
 ul {
@@ -32,13 +35,27 @@ li {
   text-align: center;
 }
 
+.top_title {
+  font-size: 40px;
+}
+
+.top_subtitle {
+  font-size: 20px;
+}
+
+.top_form {
+  box-shadow: 4px 4px 8px 0px rgba(221, 221, 221, 0.2);
+}
+
 .top__input {
   width: 905px;
   height: 50px;
+  font-family: Inter, sans-serif;
   border-radius: 5px;
   border: none;
   outline: none;
   padding-left: 20px;
+  margin-right: 10px;
 }
 
 .top__input:hover {
@@ -52,9 +69,10 @@ li {
 .top__button {
   width: 100px;
   height: 50px;
+  font-family: Inter, sans-serif;
   border: none;
   border-radius: 5px;
-  background-color: rgb(255, 255, 255);
+  background-color: #a9d8ff;
 }
 
 .top__button:hover {
@@ -75,6 +93,7 @@ li {
   background-color: white;
   width: 1010px;
   border-radius: 5px;
+  box-shadow: 4px 4px 8px 0px rgba(221, 221, 221, 0.2);
 }
 
 .bottom__item {
