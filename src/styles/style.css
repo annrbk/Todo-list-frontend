@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   background-color: #f5f5f5;
   font-family: Inter, sans-serif;
@@ -24,6 +28,7 @@ li {
 }
 
 .container {
+  max-width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -32,23 +37,26 @@ li {
 }
 
 .top {
+  width: 80vw;
   text-align: center;
 }
 
-.top_title {
+.top__title {
   font-size: 40px;
 }
 
-.top_subtitle {
+.top__subtitle {
   font-size: 20px;
 }
 
-.top_form {
-  box-shadow: 4px 4px 8px 0px rgba(221, 221, 221, 0.2);
+.top__form {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
 }
 
 .top__input {
-  width: 905px;
+  width: 80vw;
   height: 50px;
   font-family: Inter, sans-serif;
   border-radius: 5px;
@@ -56,6 +64,7 @@ li {
   outline: none;
   padding-left: 20px;
   margin-right: 10px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
 }
 
 .top__input:hover {
@@ -67,12 +76,13 @@ li {
 }
 
 .top__button {
-  width: 100px;
+  width: 150px;
   height: 50px;
   font-family: Inter, sans-serif;
   border: none;
   border-radius: 5px;
   background-color: #a9d8ff;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
 }
 
 .top__button:hover {
@@ -80,27 +90,29 @@ li {
 }
 
 .bottom {
+  width: 80vw;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .bottom__list {
+  width: 80vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: white;
-  width: 1010px;
+
   border-radius: 5px;
-  box-shadow: 4px 4px 8px 0px rgba(221, 221, 221, 0.2);
 }
 
 .bottom__item {
+  width: 80vw;
   display: flex;
-  width: 950px;
   justify-content: space-between;
-  padding-left: 20px;
+  padding: 0 20px 0 20px;
+  width: 80vw;
 }
 
 .bottom__buttons {
@@ -120,4 +132,14 @@ li {
 
 .btn-action img {
   pointer-events: none;
+}
+
+@media (max-width: 480px) {
+  .top__title {
+    font-size: 30px;
+  }
+
+  .top__subtitle {
+    font-size: 16px;
+  }
 }
